@@ -1,0 +1,16 @@
+int prime_list[100];
+int N, prime_num = 0, prime_flag;
+scanf("%d", &N);
+for (int i = 2; i <= N; i++){
+    prime_flag = 1;
+    for (int j = 2; j < i; j++){
+        if (i % j == 0){
+            prime_flag = 0;
+            break;
+        }
+    }
+    if (prime_flag){
+        prime_list[prime_num] = i;
+        prime_num += 1;
+    }
+}
