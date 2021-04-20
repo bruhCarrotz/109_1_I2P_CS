@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main() {
+	char c;
+	int x;
+	scanf("%c %d", &c, &x);
+	if(c >= 'A' && c <= 'Z') {
+		c += ('a' - 'A');
+		c = ((c - 'a' - x) % 26 + 26) % 26 + 'a';
+	}
+	else {
+		c += ('A' - 'a');
+		c = ((c - 'A' - x) % 26 + 26) % 26 + 'A';
+	}
+	printf("%c\n", c);
+	return 0;
+}
