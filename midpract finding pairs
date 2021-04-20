@@ -1,0 +1,22 @@
+#include<stdio.h>
+
+int main(){
+
+    int len, val;
+    int num_count[10001]={0};
+    scanf("%d", &len);
+
+    for(int i=0; i<len; i++){
+        scanf("%d",&val);
+        num_count[val]++;
+    }
+
+    long long pair_count = 0;
+    for(int i=0; i<10001; i++){
+        if (num_count[i]>=2)
+            pair_count += (long long)num_count[i]*(num_count[i]-1)/2;
+    }
+    printf("%lld\n", pair_count);
+
+    return 0;
+}
