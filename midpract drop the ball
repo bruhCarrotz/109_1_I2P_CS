@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+char c[505][505];
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i = 1; i <= n; i++) scanf("%s", c[i] + 1); // Let the string store in 1-based
+    int q; scanf("%d", &q);
+    while(q--) {
+        int x; scanf("%d", &x); // x := current column number
+        int type = 3;
+        for(int i = 1; i <= n; i++) {
+            if(c[i][x] == '\\') {
+                if(x == m) { type = 2; break;}
+                if(c[i][x + 1] == '\\') x++;
+                else {type = 0; break;}
+            } else if(c[i][x] == '/'){
+                if(x == 1) { type = 1; break;}
+                if(c[i][x - 1] == '/') x--;
+                else {type = 0; break;}
+            }
+        }
+        if(type == 0) printf("Stuck QQ\n");
+        else if(type == 1) printf("Left!\n");
+        else if(type == 2) printf("Right!\n");
+        else printf("Position: %d\n", x);
+    }
+    return 0;
+}
