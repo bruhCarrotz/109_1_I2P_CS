@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+int main(){
+    int a1, n, d, an, Sn;
+    scanf("%d %d %d", &a1, &n, &d);
+    an = a1+(n-1)*d;
+    Sn = (a1+an)*n/2;
+    printf("%d %d", an, Sn);
+    return 0;
+}
