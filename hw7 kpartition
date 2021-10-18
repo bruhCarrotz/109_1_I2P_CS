@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdbool.h>
+
+bool PartitionK(int *arr, int n, int k, int startIndex, int curSum, int target, bool *arr_used){
+    if (k==1) return true;
+    if (curSum == target) return PartitionK(arr, n, k-1, 0, 0, target, arr_used);
+    if (curSum > target) return false;
+    for (int i=startIndex; i<n; i++){
+        if (!arr_used[i]){
+            arr_used[i]=true;
+            if (PartitionK(arr, n, k, i+1, curSum+arr[i], target, arr_used)) return true;
+            arr_used[i]=false;
+        }
+    }
+    return false;
+}
+
+bool canPartitionK(int *arr, int n, int k){
+    int sum = 0;
+    for (int i=0; i < n; i++) sum += arr[i];
+    if (sum%k!=0) return false;
+    bool *arr_used = calloc(n, sizeof(bool));
+    return PartitionK(arr, n, k, 0, 0, sum/k, arr_used);
+}
+
+
+int main(){
+    int arr[10];
+    int q, N, K;
+    scanf("%d", &q);
+
+    while(q--){
+        scanf("%d %d",&N,&K);
+        for (int i=0;i<N;i++) scanf("%d",&arr[i]);
+        bool ans = canPartitionK(arr, N, K);
+        if (ans) printf("True\n");
+        else printf("False\n");
+    }
+
+    return 0;
+}
