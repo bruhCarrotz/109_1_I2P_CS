@@ -1,0 +1,19 @@
+#include <stdio.h>
+// somebody name the X, Y, Z as A, B, C 
+// and get confused with 'A', 'B', 'C'.
+void hanoi(int n, char X, char Y, char Z) { 
+	if(n == 1) {
+		printf("move disk %d from rod %c to rod %c\n", n, X, Z);
+		return;
+	}
+	hanoi(n - 1, X, Z, Y);
+	printf("move disk %d from rod %c to rod %c\n", n, X, Z);
+	hanoi(n - 1, Y, X, Z);
+}
+
+int main() {
+    int n;
+    scanf("%d",&n);
+    hanoi(n, 'A', 'B', 'C');
+    return 0;
+}
