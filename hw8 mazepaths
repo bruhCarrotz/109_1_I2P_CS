@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#define min(X, Y) (((X) < (Y)) ? (X) : (Y))
+
+char m[100][101] = {};
+bool v[100][101] = {};
+int R, C;
+int sol = 0, min_step = 10000000;
+
+void dfs(int r, int c, int step){
+	if(m[r][c] == 'F'){
+		min_step = min(step, min_step);
+		++sol;
+	}
+	v[r][c] = true;
+	if(r > 0 && m[r-1][c] != '#' && v[r-1][c] == false)
+		dfs(r-1, c, step+1);
+	if(r < R-1 && m[r+1][c] != '#' && v[r+1][c] == false)
+		dfs(r+1, c, step+1);
+	if(c > 0 && m[r][c-1] != '#' && v[r][c-1] == false)
+		dfs(r, c-1, step+1);
+	if(c < C-1 && m[r][c+1] != '#' && v[r][c+1] == false)
+		dfs(r, c+1, step+1);
+	v[r][c] = false;
+}
+
+int main(void) {
+	
+	int N, Sr, Sc;
+	scanf("%d", &N);
+	
+	while(N--){
+		sol = 0;
+		min_step = 10000000;
+		scanf("%d %d ", &R, &C);
+		for(int i = 0; i < R; ++i){
+			scanf("%s", &m[i]);
+			for(int j = 0; j < C; ++j){
+				v[i][j] = false;
+				if(m[i][j] == 'S'){
+					Sr = i;
+					Sc = j;
+				}
+			}
+		}
+
+		dfs(Sr, Sc, 0);
+        
+		if(sol != 0)
+			printf("%d %d\n", sol, min_step);
+		else
+			printf("0 -1\n");
+	}
+	return 0;
+}
